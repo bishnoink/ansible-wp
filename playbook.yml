@@ -2,7 +2,8 @@
   hosts: tag_cms_wordpress
   user: ec2-user
   become: yes
+  gather_facts: no
 
 
   roles:
-    - server
+    - wordpress

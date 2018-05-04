@@ -1,2 +1,36 @@
----
-# tasks file for wordpress
+- name: Download and install wp
+  get_url:
+    url=https://wordpress.org/latest.tar.gz 
+    dest=/tmp/wp.tar.gz
+    force=yes
+
+- name: Extract wp files
+  unarchive:
+    src=/tmp/wp.tar.gz
+    dest=/tmp/
+    copy=no
+
+- name: Remove existing /var/www/html directory
+  file:
+    path: /var/www/html
+    state: absent
+
+- name: Rename worpress directory
+  command: mv /tmp/wordpress /var/www/html
+
+- name: update wp-config file
+  template:
+    src: wp-config.php.j2
+    dest: /var/www/html/wp-config.php
+
+- name: Change www directory ownership to ec2-user and set permissions
+  file:
+    path: /var/www
+    owner: ec2-user
+    group: apache
+    mode: 2775
+    recurse: yes
+
+
+  notify:
+    - Restart apache

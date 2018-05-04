@@ -1,0 +1,9 @@
+- ec2:
+    key_name: demowebservers
+    instance_type: t2.micro
+    image: ami-467ca739
+    wait: yes
+    group: webserver
+    count: 2
+    vpc_subnet_id: subnet-8fa56cd2
+    assign_public_ip: yes
