@@ -1,0 +1,8 @@
+- name: Wordpress deployment
+  hosts: tag_cms_wordpress
+  user: ec2-user
+  become: yes
+
+
+  roles:
+    - server

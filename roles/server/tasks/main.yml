@@ -1,0 +1,25 @@
+- name: Update all package to latest
+  yum: name=* state=latest
+
+- name: Install LAMP packages
+  yum: name={{ item }} state=present
+  with_items:
+    - httpd24
+    - php70
+    - mysql56-server
+    - php70-mysqlnd
+
+- name: Add user into apache group
+  user: 
+    name: ec2-user
+    shell: /bin/bash
+    state: present
+    groups: ec2-user, apache
+    append: yes
+
+- name: Change www directory ownership to ec2-user and set permissions
+  file: 
+    path: /var/www
+    owner: ec2-user
+    group: apache
+    mode: 2775
