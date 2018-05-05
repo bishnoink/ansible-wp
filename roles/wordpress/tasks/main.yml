@@ -24,13 +24,6 @@
     dest: /var/www/html/wp-config.php
 
 - name: Change www directory ownership to ec2-user and set permissions
-  file:
-    path: /var/www
-    owner: ec2-user
-    group: apache
-    mode: 2775
-    recurse: yes
-
-
+  command: find /var/www -type d -exec sudo chmod 2775 {} \;
   notify:
     - Restart apache

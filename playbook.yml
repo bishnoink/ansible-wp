@@ -1,9 +1,9 @@
-- name: Wordpress deployment
+- name: Configure instances
   hosts: tag_cms_wordpress
   user: ec2-user
-  become: yes
-  gather_facts: no
-
+  become: True
+  gather_facts: True
 
   roles:
+    - server
     - wordpress
